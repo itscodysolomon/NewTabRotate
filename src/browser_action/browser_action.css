@@ -1,0 +1,135 @@
+body {
+    background: white;
+    opacity: 0;
+    margin: 0;
+    transition: opacity .25s ease-in;
+    min-width: 255px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+}
+
+#header {
+    padding: 1em;
+    text-align: center;
+    background: rgb(0, 219, 179);
+    background: linear-gradient(-170deg, #0088FF, #03ABDF, #02C8C4, #00DBB3);
+    background-size: 400% 400%;
+    -webkit-animation: gradient 5s ease infinite;
+    -z-animation: gradient 5s ease infinite;
+    -o-animation: gradient 5s ease infinite;
+    animation: gradient 5s ease infinite;
+}
+
+#header img {
+    max-width: 25px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    width: 100%;
+    margin: 0;
+    padding: .75em 0 0;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+#content {
+    padding: 1.25em;
+    min-height: 100px;
+}
+
+#extension-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+}
+
+li {
+    padding: 1.8em;
+    cursor: pointer;
+}
+
+li img {
+    transform: scale(1);
+    transition: all .2s ease-in-out;
+}
+
+li:hover img {
+    transform: scale(1.15);
+    transition: all .2s ease-in-out;
+}
+
+ul img {
+    max-width: 32px;
+}
+
+#more-info {
+    width: 100%;
+    background: #eee;
+}
+
+h3 {
+    text-align: center;
+    margin: 0;
+    padding: .4em;
+    font-size: 1em;
+    font-weight: 400;
+    color: #454545;
+    cursor: pointer;
+    border-bottom: solid 1px #dfdfdf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 img {
+    max-width: 16px;
+    opacity: .3;
+}
+
+#more-info-content {
+    display: none;
+    padding: 1em;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+p {
+    margin: 0;
+    color: #454545;
+}
+
+a {
+    background: -webkit-linear-gradient(-170deg, #0088FF, rgb(33, 202, 199), rgb(14, 164, 209));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: gradient 5s ease infinite;
+    -z-animation: gradient 5s ease infinite;
+    -o-animation: gradient 5s ease infinite;
+    animation: gradient 5s ease infinite;
+    background-size: 400% 400%;
+}
+
+.opacity-full {
+    opacity: 1;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
