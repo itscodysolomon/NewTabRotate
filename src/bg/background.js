@@ -124,15 +124,12 @@ function enableExtension(extId) {
 
 // on open of new tab, close any other previously opened new tabs
 function closeOtherNewTabs() {
-  // only do this if 'new tab' extension count is greater than one
-  if (new_tab_extensions.length > 1) {
-    chrome.tabs.query({
-      active: false,
-      url: 'chrome://newtab/'
-    }, function (tabs) {
-      for (let tab of tabs) {
-        chrome.tabs.remove(tab.id);
-      }
-    });
-  }
+  chrome.tabs.query({
+    active: false,
+    url: 'chrome://newtab/'
+  }, function (tabs) {
+    for (let tab of tabs) {
+      chrome.tabs.remove(tab.id);
+    }
+  });
 }
