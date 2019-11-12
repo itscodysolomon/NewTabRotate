@@ -5,39 +5,25 @@ let new_tab_index = 0;
 chrome.runtime.onInstalled.addListener(function () {
   // get the 'new tab' extensions and store them locally
   filterNewTabExtensions(storeNewTabExtensions);
-  // listen for new tab opened event
-  chrome.tabs.onCreated.addListener(function (event) {
-    // make sure opened tab was a direct 'new tab' open as apposed to a link triggering a new tab
-    if (event.url === "chrome://newtab/" && event.openerTabId) {
-      // set the next new tab
-      setNextTab();
-      // on open of new tab, close any other previously opened new tabs
-      closeOtherNewTabs();
-    }
-  });
 
-  // continually update extensions
-  setInterval(function () {
-    filterNewTabExtensions(storeNewTabExtensions);
-  }, 5000);
+  initExtUpdate();
+});
 
-  // disable all extensions from array and then enable the current index to set active new tab
-  function setNextTab() {
-    let new_tab_ext_count = new_tab_extensions.length;
-    new_tab_index++;
-    if (new_tab_index > new_tab_ext_count - 1) {
-      new_tab_index = 0;
-    }
+chrome.runtime.onStartup.addListener(function () {
+  // get the 'new tab' extensions and store them locally
+  filterNewTabExtensions(storeNewTabExtensions);
 
-    for (var extension of new_tab_extensions) {
-      enableExtension(extension.id);
-    }
+  initExtUpdate();
+});
 
-    for (let i = 0; i < new_tab_extensions.length; i++) {
-      if (i !== new_tab_index) {
-        disableExtension(new_tab_extensions[i].id);
-      }
-    }
+// listen for new tab opened event
+chrome.tabs.onCreated.addListener(function (event) {
+  // make sure opened tab was a direct 'new tab' open as apposed to a link triggering a new tab
+  if (event.url === "chrome://newtab/" && event.openerTabId) {
+    // set the next new tab
+    setNextTab();
+    // on open of new tab, close any other previously opened new tabs
+    closeOtherNewTabs();
   }
 });
 
@@ -74,6 +60,33 @@ chrome.runtime.onMessage.addListener(function (request) {
     }
   }
 });
+
+function initExtUpdate() {
+  // continually update extensions
+  setInterval(function () {
+    filterNewTabExtensions(storeNewTabExtensions);
+    console.log('hey');
+  }, 5000);
+}
+
+// disable all extensions from array and then enable the current index to set active new tab
+function setNextTab() {
+  let new_tab_ext_count = new_tab_extensions.length;
+  new_tab_index++;
+  if (new_tab_index > new_tab_ext_count - 1) {
+    new_tab_index = 0;
+  }
+
+  for (var extension of new_tab_extensions) {
+    enableExtension(extension.id);
+  }
+
+  for (let i = 0; i < new_tab_extensions.length; i++) {
+    if (i !== new_tab_index) {
+      disableExtension(new_tab_extensions[i].id);
+    }
+  }
+}
 
 // filter installed extensions for 'new tab' extensions
 function filterNewTabExtensions(callback) {
