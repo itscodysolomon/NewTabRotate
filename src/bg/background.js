@@ -19,7 +19,7 @@ chrome.runtime.onStartup.addListener(function () {
 // listen for new tab opened event
 chrome.tabs.onCreated.addListener(function (event) {
   // make sure opened tab was a direct 'new tab' open as apposed to a link triggering a new tab
-  if (event.url === "chrome://newtab/" && event.openerTabId) {
+  if (event.pendingUrl === "chrome://newtab/" && event.openerTabId) {
     // set the next new tab
     setNextTab();
     // on open of new tab, close any other previously opened new tabs
@@ -65,7 +65,6 @@ function initExtUpdate() {
   // continually update extensions
   setInterval(function () {
     filterNewTabExtensions(storeNewTabExtensions);
-    console.log('hey');
   }, 5000);
 }
 
