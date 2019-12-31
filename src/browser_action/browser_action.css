@@ -101,9 +101,9 @@ h3 img {
 }
 
 p {
-    font-size: 1.2em;
-    margin: 0;
-    color: #454545;
+    font-size: .85em;
+    margin: 0 0 .5em;
+    color: #797979;
     text-align: center;
 }
 
@@ -116,6 +116,7 @@ a {
     -o-animation: gradient 5s ease infinite;
     animation: gradient 5s ease infinite;
     background-size: 400% 400%;
+    font-size: .85em;
 }
 
 .opacity-full {
