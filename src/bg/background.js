@@ -18,13 +18,23 @@ chrome.runtime.onStartup.addListener(function () {
 
 // listen for new tab opened event
 chrome.tabs.onCreated.addListener(function (event) {
-  // make sure opened tab was a direct 'new tab' open as apposed to a link triggering a new tab
-  if (event.pendingUrl === "chrome://newtab/" && event.openerTabId) {
-    // set the next new tab
-    setNextTab();
-    // on open of new tab, close any other previously opened new tabs
-    closeOtherNewTabs();
-  }
+  // new tabs don't always have a url when opened
+  // wait for url to render from update listener below then load
+  // then set this flag after update is complete
+  let newTabUpdated = false;
+
+  chrome.tabs.onUpdated.addListener(function (id, info, tab) {
+    if (tab.url === "chrome://newtab/" && !newTabUpdated && tab.openerTabId) {
+      // tab can 'update' a lot on creation
+      // set flag to prevent infinite tab creation loop from functions below once the "chrome://newtab/" url is loaded
+      newTabUpdated = true;
+      // make sure opened tab was a direct 'new tab' open as apposed to a link triggering a new tab
+      // set the next new tab
+      setNextTab();
+      // on open of new tab, close any other previously opened new tabs
+      closeOtherNewTabs();
+      }
+  });
 });
 
 // refresh when on popup load to make sure popup elements are updated on uninstall/reinstall of exts
